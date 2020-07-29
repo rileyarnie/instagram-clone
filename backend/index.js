@@ -2,14 +2,24 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const createError = require("http-errors");
-const cors = require("cors")
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
-app.use(cors())
-app.use("", (req, res, next) => {
+app.use(cors());
+
+app.use("/", (req, res, next) => {
   res.send("Hello");
+});
+
+app.use(async (req, res, next) => {
+  next(createError.NotFound());
+});
+
+app.use((error, req, res, next) => {
+  const status = error.status || 500;
+  return res.status(status).json({ error });
 });
 
 const PORT = process.env.PORT || 5000;
