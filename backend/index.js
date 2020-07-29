@@ -5,13 +5,12 @@ const createError = require("http-errors");
 const cors = require("cors");
 
 const app = express();
+const postRoutes = require("./routes/posts");
 
 app.use(express.json());
 app.use(cors());
 
-app.use("/", (req, res, next) => {
-  res.send("Hello");
-});
+app.use("/", postRoutes);
 
 app.use(async (req, res, next) => {
   next(createError.NotFound());
@@ -19,7 +18,7 @@ app.use(async (req, res, next) => {
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;
-  return res.status(status).json({ error });
+  return res.status(status).json({ error: error.message });
 });
 
 const PORT = process.env.PORT || 5000;
