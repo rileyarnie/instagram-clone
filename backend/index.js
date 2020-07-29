@@ -10,8 +10,10 @@ const postRoutes = require("./routes/posts");
 app.use(express.json());
 app.use(cors());
 
+// ROUTES
 app.use("/", postRoutes);
 
+//MIDDLEWARES
 app.use(async (req, res, next) => {
   next(createError.NotFound());
 });
