@@ -1,3 +1,9 @@
+.navigation{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
 .navigation__navigation {
     padding: 20px;
     border-bottom: 1px solid lightgrey;
