@@ -5,7 +5,7 @@
 }
 
 .navigation__navigation {
-    padding: 20px;
+    padding: 10px;
     border-bottom: 1px solid lightgrey;
     background-color: white;
     margin-bottom: 20px;
@@ -13,7 +13,7 @@
 
   .navigation_nav {
     display: flex;
-    margin: 0 100px;
+    margin: 0 110px;
     justify-content: space-between;
     align-items: center;
   }
