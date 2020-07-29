@@ -30,7 +30,7 @@ const Navigation = () => {
                 />
               </li>
               <li className="navigation_nav-Item">
-                <img src="https://img.icons8.com/ios/24/000000/user.png" />
+                <img src="https://img.icons8.com/ios/24/000000/user.png" alt="profile" />
               </li>
 
               <li className="navigation_nav-Item">Logout</li>

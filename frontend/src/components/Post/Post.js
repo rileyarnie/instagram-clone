@@ -11,7 +11,7 @@ const Post = () => {
           <p className="post__username">username</p>
         </div>
         <div className="post__options">
-          <img src="https://img.icons8.com/ios-filled/24/000000/more.png" />
+          <img src="https://img.icons8.com/ios-filled/24/000000/more.png" alt="post" />
         </div>
       </div>
       <div className="post__body">
