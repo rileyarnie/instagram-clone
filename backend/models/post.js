@@ -10,6 +10,11 @@ const postValidator = new schema({
     type: String,
     required: true,
   },
+  creator: {
+    type: schema.Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
 });
 
 module.exports = mongoose.model("Post", postValidator);
