@@ -29,15 +29,15 @@ const upload = multer({
 });
 
 const router = express.Router();
-const postsController = require("../controllers/postsController");
+const postControllers = require("../controllers/postControllers");
 
-router.get("", postsController.getPosts);
+router.get("", postControllers.getPosts);
 router.post(
   "/create-post",
   upload.single("imageUrl"),
-  postsController.createPost
+  postControllers.createPost
 );
 
-router.delete("/delete-post/:id", postsController.deletePost);
+router.delete("/delete-post/:id", postControllers.deletePost);
 
 module.exports = router;

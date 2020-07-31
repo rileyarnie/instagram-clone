@@ -24,8 +24,12 @@ exports.getPosts = async (req, res, next) => {
 // CREATE POST
 exports.createPost = async (req, res, next) => {
   const { caption } = req.body;
-  const imageUrl = req.file.path;
+
   try {
+    if (!req.file) {
+      throw createError.BadRequest("Please enter a valid image");
+    }
+    const imageUrl = req.file.path;
     const validatedPost = await postSchema.validateAsync({ caption, imageUrl });
     if (!validatedPost) {
       throw createError.BadRequest();

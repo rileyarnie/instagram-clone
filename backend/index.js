@@ -5,7 +5,7 @@ const createError = require("http-errors");
 const cors = require("cors");
 
 const app = express();
-const postRoutes = require("./routes/posts");
+const postRoutes = require("./routes/post");
 
 app.use(express.json());
 app.use(cors());
