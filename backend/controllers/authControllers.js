@@ -5,6 +5,7 @@ const {
   loginValidator,
 } = require("../validators/userValidator");
 const bcrpyt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // REGISTER
 exports.register = async (req, res, next) => {
@@ -35,7 +36,14 @@ exports.register = async (req, res, next) => {
 
     const savedUser = await user.save();
 
-    res.status(201).json({ user: { username, email } });
+    const access_token = await jwt.sign(
+      { id: savedUser._id, username: savedUser.username },
+      process.env.ACCESS_TOKEN,
+      {
+        expiresIn: "30m",
+      }
+    );
+    res.status(201).json(access_token);
   } catch (error) {
     error.isJoi ? (error.status = 400) : "";
     return next(error);
@@ -58,7 +66,16 @@ exports.login = async (req, res, next) => {
     if (!validPassword) {
       throw createError.BadRequest("enter valid password");
     }
-    res.status(200).json({ message: "login successful", username });
+
+    access_token = await jwt.sign(
+      { id: user._id, username: username },
+      process.env.ACCESS_TOKEN,
+      {
+        expiresIn: "30m",
+      }
+    );
+
+    res.status(200).json(access_token);
   } catch (error) {
     error.isJoi ? (error.status = "400") : "";
     return next(error);
