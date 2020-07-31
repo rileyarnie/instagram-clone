@@ -38,4 +38,6 @@ router.post(
   postsController.createPost
 );
 
+router.delete("/delete-post/:id", postsController.deletePost);
+
 module.exports = router;
