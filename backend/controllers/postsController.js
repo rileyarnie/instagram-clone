@@ -1,6 +1,7 @@
 const { postSchema } = require("../validators/postValidator");
 const Post = require("../models/post");
 const createError = require("http-errors");
+const { cloudinary } = require("../utils/cloudinary");
 
 // GET ALL POSTS
 exports.getPosts = async (req, res, next) => {
@@ -22,15 +23,24 @@ exports.getPosts = async (req, res, next) => {
 
 // CREATE POST
 exports.createPost = async (req, res, next) => {
-  const { imageUrl, caption } = req.body;
+  const { caption } = req.body;
+  const imageUrl = req.file.path;
   try {
-    const validatedPost = await postSchema.validateAsync(req.body);
+    const validatedPost = await postSchema.validateAsync({ caption, imageUrl });
     if (!validatedPost) {
       throw createError.BadRequest();
     }
 
-    const post = new Post({
+    const cloudImage = await cloudinary.uploader.upload(
       imageUrl,
+      (error, result) => {
+        if (error) {
+          throw createError.InternalServerError();
+        }
+      }
+    );
+    const post = new Post({
+      imageUrl: cloudImage.secure_url,
       caption,
     });
     const savedPost = await post.save();
