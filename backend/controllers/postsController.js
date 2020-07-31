@@ -59,4 +59,19 @@ exports.createPost = async (req, res, next) => {
 
 // DELETE POST
 
+exports.deletePost = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const deletedPost = await Post.findOneAndDelete(id);
+    if (!deletedPost) {
+      throw next(createError.NotFound("Post not found"));
+    }
+
+    res.status(200).send("Successfully deleted post");
+  } catch (error) {
+    return next(error);
+  }
+};
+
 // UPDATE POST
