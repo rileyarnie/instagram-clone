@@ -1,4 +1,4 @@
-const { postSchema } = require("../validators/postValidator");
+const { postValidator } = require("../validators/postValidator");
 const Post = require("../models/post");
 const createError = require("http-errors");
 const { cloudinary } = require("../utils/cloudinary");
@@ -30,7 +30,10 @@ exports.createPost = async (req, res, next) => {
       throw createError.BadRequest("Please enter a valid image");
     }
     const imageUrl = req.file.path;
-    const validatedPost = await postSchema.validateAsync({ caption, imageUrl });
+    const validatedPost = await postValidator.validateAsync({
+      caption,
+      imageUrl,
+    });
     if (!validatedPost) {
       throw createError.BadRequest();
     }

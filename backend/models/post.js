@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema;
 
-const postSchema = new schema({
+const postValidator = new schema({
   caption: {
     type: String,
   },
@@ -12,4 +12,4 @@ const postSchema = new schema({
   },
 });
 
-module.exports = mongoose.model("Post", postSchema);
+module.exports = mongoose.model("Post", postValidator);

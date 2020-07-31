@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const app = express();
 const postRoutes = require("./routes/post");
+const authRoutes = require("./routes/auth")
 
 app.use(express.json());
 app.use(cors());
@@ -13,6 +14,7 @@ app.use("/uploads", express.static("uploads"));
 
 // ROUTES
 app.use("/", postRoutes);
+app.use("/auth", authRoutes)
 
 //MIDDLEWARES
 app.use(async (req, res, next) => {

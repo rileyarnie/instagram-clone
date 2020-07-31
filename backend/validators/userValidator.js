@@ -1,9 +1,9 @@
 const Joi = require("@hapi/joi");
 
-const userValidator = Joi.object({
+const registerValidator = Joi.object({
   username: Joi.string().min(1).max(10).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
 });
 
-module.exports = { userValidator };
+module.exports = { registerValidator };
