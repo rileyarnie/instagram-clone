@@ -2,6 +2,8 @@ const { postValidator } = require("../validators/postValidator");
 const Post = require("../models/post");
 const createError = require("http-errors");
 const { cloudinary } = require("../utils/cloudinary");
+const User = require("../models/user");
+const mongoose = require("mongoose");
 
 // GET ALL POSTS
 exports.getPosts = async (req, res, next) => {
@@ -46,18 +48,25 @@ exports.createPost = async (req, res, next) => {
         }
       }
     );
+    const creator = await User.findById(req.userId);
+    if (!creator) {
+      throw createError.Forbidden("Please login then try again.");
+    }
+
     const post = new Post({
       imageUrl: cloudImage.secure_url,
       caption,
+      creator,
     });
-    const savedPost = await post.save();
-    if (!savedPost) {
-      throw createError.InternalServerError(
-        "Post creation failed. Please try again."
-      );
-    }
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    creator.posts.push(post);
+    await creator.save({ session: sess });
+    await post.save({ session: sess });
+    await sess.commitTransaction();
 
-    res.status(201).json({ post: savedPost });
+
+    res.status(201).json({ post });
   } catch (error) {
     error.isJoi ? (error.status = 400) : "";
     return next(error);
