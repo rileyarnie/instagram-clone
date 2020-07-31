@@ -1,6 +1,9 @@
 const createError = require("http-errors");
 const User = require("../models/user");
-const { registerValidator } = require("../validators/userValidator");
+const {
+  registerValidator,
+  loginValidator,
+} = require("../validators/userValidator");
 const bcrpyt = require("bcryptjs");
 
 // REGISTER
@@ -20,7 +23,7 @@ exports.register = async (req, res, next) => {
     const emailExists = await User.findOne({ email });
     if (emailExists) {
       throw createError.Conflict("email already in use");
-    } 
+    }
 
     const hashedPassword = await bcrpyt.hash(password, 10);
 
@@ -39,8 +42,27 @@ exports.register = async (req, res, next) => {
   }
 };
 // LOGIN
-exports.login = (req, res, next) => {
-  res.send("login");
+exports.login = async (req, res, next) => {
+  const { username, password } = req.body;
+
+  try {
+    const validatedUser = await loginValidator.validateAsync(req.body);
+    if (!validatedUser) {
+      throw createError.BadRequest("Please fill all fields");
+    }
+    const user = await User.findOne({ username });
+    if (!user) {
+      throw createError.NotFound("User doesn't exist");
+    }
+    const validPassword = await bcrpyt.compare(password, user.password);
+    if (!validPassword) {
+      throw createError.BadRequest("enter valid password");
+    }
+    res.status(200).json({ message: "login successful", username });
+  } catch (error) {
+    error.isJoi ? (error.status = "400") : "";
+    return next(error);
+  }
 };
 // LOGOUT
 exports.logout = (req, res, next) => {
