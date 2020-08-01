@@ -50,7 +50,7 @@ exports.createPost = async (req, res, next) => {
     );
     const creator = await User.findById(req.userId);
     if (!creator) {
-      throw createError.Forbidden("Please login then try again.");
+      throw createError.Unauthorized("Please login then try again.");
     }
 
     const post = new Post({
@@ -65,7 +65,6 @@ exports.createPost = async (req, res, next) => {
     await post.save({ session: sess });
     await sess.commitTransaction();
 
-
     res.status(201).json({ post });
   } catch (error) {
     error.isJoi ? (error.status = 400) : "";
@@ -76,13 +75,18 @@ exports.createPost = async (req, res, next) => {
 // DELETE POST
 
 exports.deletePost = async (req, res, next) => {
-  const { id } = req.params;
-
   try {
-    const deletedPost = await Post.findOneAndDelete(id);
-    if (!deletedPost) {
+    const post = await Post.findById(req.params.postId).populate("creator");
+    if (!post) {
       throw next(createError.NotFound("Post not found"));
     }
+
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await post.remove({ session: sess });
+    await post.creator.posts.pull(post);
+    await post.creator.save({ session: sess });
+    await sess.commitTransaction();
 
     res.status(200).send("Successfully deleted post");
   } catch (error) {
