@@ -18,7 +18,13 @@ const userSchema = new schema({
   posts: [
     {
       type: schema.Types.ObjectId,
-      ref: "User",
+      ref: "Post",
+    },
+  ],
+  comments: [
+    {
+      type: schema.Types.ObjectId,
+      ref: "Comment",
     },
   ],
 });

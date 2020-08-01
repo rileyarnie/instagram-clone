@@ -58,12 +58,22 @@ exports.createPost = async (req, res, next) => {
       caption,
       creator,
     });
-    const sess = await mongoose.startSession();
-    sess.startTransaction();
-    creator.posts.push(post);
-    await creator.save({ session: sess });
-    await post.save({ session: sess });
-    await sess.commitTransaction();
+
+    const postsInDb = await Post.find();
+
+    if (postsInDb.length < 0) {
+      creator.posts.push(post);
+      await creator.save();
+      await post.save();
+      
+    } else {
+      const sess = await mongoose.startSession();
+      sess.startTransaction();
+      creator.posts.push(post);
+      await creator.save({ session: sess });
+      await post.save({ session: sess });
+      await sess.commitTransaction();
+    }
 
     res.status(201).json({ post });
   } catch (error) {
