@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema;
 
-const postValidator = new schema({
+const postSchema = new schema({
   caption: {
     type: String,
   },
@@ -15,10 +15,12 @@ const postValidator = new schema({
     required: true,
     ref: "User",
   },
-  comments:[{
-    type: schema.Types.ObjectId,
-    ref: "Comment"
-  }]
-}); 
+  comments: [
+    {
+      type: schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
+});
 
-module.exports = mongoose.model("Post", postValidator);
+module.exports = mongoose.model("Post", postSchema);
