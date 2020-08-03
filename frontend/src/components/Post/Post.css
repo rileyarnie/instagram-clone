@@ -5,6 +5,7 @@
   margin-left: 120px;
   border: 1px solid lightgrey;
   margin-top: 50px;
+  margin-bottom: 30px;
 }
 
 .post__header {
@@ -60,10 +61,16 @@
 
 .post__input {
   height: 25px;
-  text-align: center;
+  text-align: left;
   border: none;
   font-size: 16px;
+  flex: 1;
 }
+
+.post__input:focus {
+  outline: none;
+}
+
 .post__button {
   font-size: 15px;
   margin-right: 10px;
@@ -71,4 +78,9 @@
   font-weight: 650;
   background-color: white;
   cursor: pointer;
+}
+
+.post__comments_title {
+  font-size: 14px;
+  color: rgb(99, 94, 94);
 }
