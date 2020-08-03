@@ -8,7 +8,17 @@ const mongoose = require("mongoose");
 // GET ALL POSTS
 exports.getPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find()
+      .populate("creator", "-password -email -_id -posts -comments -__v")
+      .populate({
+        path: "comments",
+        select: "-__v",
+        populate: {
+          path: "author",
+          select: "-posts -password -email -_id -posts -comments -__v",
+        },
+      });
+
     if (!posts) {
       throw createError.InternalServerError(
         "Something went wrong. No worrie, just try again."
@@ -58,22 +68,9 @@ exports.createPost = async (req, res, next) => {
       caption,
       creator,
     });
-
-    const postsInDb = await Post.find();
-
-    if (postsInDb.length < 0) {
-      creator.posts.push(post);
-      await creator.save();
-      await post.save();
-      
-    } else {
-      const sess = await mongoose.startSession();
-      sess.startTransaction();
-      creator.posts.push(post);
-      await creator.save({ session: sess });
-      await post.save({ session: sess });
-      await sess.commitTransaction();
-    }
+    creator.posts.push(post);
+    await creator.save();
+    await post.save();
 
     res.status(201).json({ post });
   } catch (error) {

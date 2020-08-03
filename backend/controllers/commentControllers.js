@@ -10,7 +10,6 @@ exports.createComment = async (req, res, next) => {
 
   try {
     const validatedComment = await commentValidator.validateAsync({ content });
-    console.log("********", validatedComment);
 
     if (!validatedComment) {
       throw createError.BadRequest("Please fill all fields");
@@ -29,24 +28,11 @@ exports.createComment = async (req, res, next) => {
       author: req.userId,
     });
 
-    const commentsInDb = await Comment.find();
-
-    if (commentsInDb.length < 1) {
-      user.comments.push(comment);
-      post.comments.push(comment);
-      await user.save();
-      await post.save();
-      await comment.save();
-
-    } else {
-      const sess = await mongoose.startSession();
-      sess.startTransaction();
-      user.comments.push(comment);
-      post.comments.push(comment);
-      await user.save({ session: sess });
-      await post.save({ session: sess });
-      await comment.save({ session: sess });
-    }
+    user.comments.push(comment);
+    post.comments.push(comment);
+    await user.save();
+    await post.save();
+    await comment.save();
 
     res.status(200).json(comment);
   } catch (error) {
