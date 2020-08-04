@@ -6,10 +6,14 @@ import * as actionTypes from "./store/actions/actionTypes";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link, Route, Switch } from "react-router-dom";
+import Register from "./components/Register/Register";
+import Login from "./components/Login/Login";
+import PostList from "./components/PostList/PostList";
 
 function App() {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.postReducer.posts);
+  // const posts = useSelector((state) => state.postReducer.posts);
   const error = useSelector((state) => state.postReducer.error);
 
   useEffect(() => {
@@ -19,7 +23,6 @@ function App() {
 
   return (
     <div>
-      <Navigation />
       {error ? (
         <ToastContainer
           position="top-center"
@@ -33,17 +36,16 @@ function App() {
           pauseOnHover
         />
       ) : (
-        posts.map((post) => (
-          <Post
-            caption={post.caption}
-            creator={post.creator}
-            imageUrl={post.imageUrl}
-            key={post._id}
-            _id={post._id}
-            comments={post.comments}
-          />
-        ))
+        ""
       )}
+      <Switch>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/">
+          <Navigation />
+          <PostList />
+        </Route>
+      </Switch>
     </div>
   );
 }
