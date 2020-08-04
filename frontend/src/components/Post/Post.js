@@ -1,8 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Post.css";
 import Avatar from "@material-ui/core/Avatar";
+import { useDispatch } from "react-redux";
+import * as actionTypes from "../../store/actions/actionTypes";
+import io from "socket.io-client";
 
-const Post = ({ comments, creator, caption, imageUrl }) => {
+let socket;
+
+const Post = ({ _id, comments, creator, caption, imageUrl }) => {
+  const [comment, setComment] = useState("");
+  const dispatch = useDispatch();
+  const ENDPOINT = "http://localhost:5000";
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+  }, []);
+
+  const handleSubmit = (event) => {
+    socket.emit("comment", { comment });
+
+    event.preventDefault();
+    dispatch(actionTypes.postComment(_id, comment));
+    setComment("");
+  };
+
   return (
     <div className="post">
       <div className="post__header">
@@ -50,8 +71,20 @@ const Post = ({ comments, creator, caption, imageUrl }) => {
       </div>
       <div className="post__footer">
         <form className="post__form">
-          <input className="post__input" placeholder="Add a comment..." />
-          <button className="post__button">Post</button>
+          <input
+            className="post__input"
+            placeholder="Add a comment..."
+            onChange={(event) => setComment(event.target.value)}
+            value={comment}
+          />
+          <button
+            type="submit"
+            className="post__button"
+            onClick={handleSubmit}
+            disabled={comment ? false : true}
+          >
+            Post
+          </button>
         </form>
       </div>
     </div>
