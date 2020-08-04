@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 const postRoutes = require("./routes/post");
 const authRoutes = require("./routes/auth");
-const commentRoutes = require("./routes/comment")
+const commentRoutes = require("./routes/comment");
 const isAuthenticated = require("./middlewares/isAuth");
 
 app.use(express.json());
@@ -17,7 +17,7 @@ app.use("/uploads", express.static("uploads"));
 // ROUTES
 app.use("/auth", authRoutes);
 app.use("/posts", isAuthenticated, postRoutes);
-app.use("/comments", isAuthenticated, commentRoutes)
+app.use("/comments", isAuthenticated, commentRoutes);
 
 //MIDDLEWARES
 app.use(async (req, res, next) => {
@@ -39,7 +39,6 @@ mongoose
   })
   .then((res) => {
     console.log("Connected to database ");
-    app.listen(PORT, console.log("app listening on port 5000"));
   })
   .catch((err) => {
     createError.InternalServerError(), console.log(err);

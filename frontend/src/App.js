@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "./App.css";
-
 import Navigation from "./components/Navigation/Navigation";
 import Post from "./components/Post/Post";
 import * as actionTypes from "./store/actions/actionTypes";

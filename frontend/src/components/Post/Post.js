@@ -3,22 +3,12 @@ import "./Post.css";
 import Avatar from "@material-ui/core/Avatar";
 import { useDispatch } from "react-redux";
 import * as actionTypes from "../../store/actions/actionTypes";
-import io from "socket.io-client";
-
-let socket;
 
 const Post = ({ _id, comments, creator, caption, imageUrl }) => {
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
-  const ENDPOINT = "http://localhost:5000";
-
-  useEffect(() => {
-    socket = io(ENDPOINT);
-  }, []);
 
   const handleSubmit = (event) => {
-    socket.emit("comment", { comment });
-
     event.preventDefault();
     dispatch(actionTypes.postComment(_id, comment));
     setComment("");
