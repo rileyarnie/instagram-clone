@@ -39,6 +39,7 @@ mongoose
   })
   .then((res) => {
     console.log("Connected to database ");
+    app.listen(PORT, console.log("app listening on port 5000"));
   })
   .catch((err) => {
     createError.InternalServerError(), console.log(err);
