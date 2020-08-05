@@ -1,7 +1,10 @@
 import React from "react";
 import "./Navigation.css";
+import { useDispatch } from "react-redux";
+import * as actionTypes from "../../store/actions/actionTypes";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   return (
     <div className="navigation">
       <div className="navigation__navigation">
@@ -42,7 +45,12 @@ const Navigation = () => {
                 />
               </li>
 
-              <li className="navigation_nav-Item">Logout</li>
+              <li
+                onClick={() => dispatch(actionTypes.authLogout())}
+                className="navigation_nav-Item navigation__logout"
+              >
+                Logout
+              </li>
             </ul>
           </div>
         </nav>
