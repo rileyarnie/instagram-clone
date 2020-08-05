@@ -40,7 +40,7 @@ exports.register = async (req, res, next) => {
       { id: savedUser._id, username: savedUser.username },
       process.env.ACCESS_TOKEN,
       {
-        expiresIn: "30m",
+        expiresIn: "60m",
       }
     );
     res.status(201).json(access_token);
@@ -60,18 +60,22 @@ exports.login = async (req, res, next) => {
     }
     const user = await User.findOne({ username });
     if (!user) {
-      throw createError.NotFound("User doesn't exist");
+      throw createError.NotFound(
+        "Username or Password incorrect! Please try again."
+      );
     }
     const validPassword = await bcrpyt.compare(password, user.password);
     if (!validPassword) {
-      throw createError.BadRequest("enter valid password");
+      throw createError.BadRequest(
+        "Username or Password incorrect! Please try again."
+      );
     }
 
     access_token = await jwt.sign(
       { id: user._id, username: username },
       process.env.ACCESS_TOKEN,
       {
-        expiresIn: "30m",
+        expiresIn: "60m",
       }
     );
 
