@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Post.css";
 import Avatar from "@material-ui/core/Avatar";
 import { useDispatch } from "react-redux";
@@ -52,11 +52,6 @@ const Post = ({ _id, comments, creator, caption, imageUrl }) => {
               {comment.content}
             </p>
           ))}
-          {/* <p className="post__comment">
-            <span className="post__comment-username">Username</span> Lorem ipsum
-            dolor sit amet, consectetur adipiscing elitconsectetur adipiscing
-            elitconsectetur adipiscing elit
-          </p> */}
         </div>
       </div>
       <div className="post__footer">
