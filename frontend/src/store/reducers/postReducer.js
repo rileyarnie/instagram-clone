@@ -16,6 +16,12 @@ const postReducer = (state = initialState, action) => {
     case actionTypes.POST_COMMENT:
       return { ...state };
 
+      case actionTypes.CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+
     default:
       return state;
   }
