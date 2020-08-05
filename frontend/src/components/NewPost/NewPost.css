@@ -1,0 +1,26 @@
+.newpost__form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.newpost__form > textarea {
+  margin: 10px;
+  height: 30px;
+  padding: 10px;
+}
+
+.newpost__form > input {
+  margin: 10px;
+}
+
+.newpost__form > button {
+  margin: 10px;
+  width: 30%;
+  background-color: #0095f6;
+  color: white;
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+}

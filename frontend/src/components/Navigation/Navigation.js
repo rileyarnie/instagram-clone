@@ -2,6 +2,7 @@ import React from "react";
 import "./Navigation.css";
 import { useDispatch } from "react-redux";
 import * as actionTypes from "../../store/actions/actionTypes";
+import NewPost from "../NewPost/NewPost";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -27,10 +28,7 @@ const Navigation = () => {
                 />
               </li>
               <li className="navigation_nav-Item">
-                <img
-                  src="https://img.icons8.com/material-outlined/24/000000/add.png"
-                  alt="new-post"
-                />
+                <NewPost />
               </li>
               <li className="navigation_nav-Item">
                 <img
