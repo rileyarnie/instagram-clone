@@ -135,6 +135,7 @@ export const getPostsError = (error) => {
 export const createPost = (file, caption) => async (dispatch) => {
   const formData = new FormData();
   formData.append("imageUrl", file);
+  formData.append("caption", caption);
   try {
     const response = await axios.post("posts/create-post", formData);
     console.log(response);
