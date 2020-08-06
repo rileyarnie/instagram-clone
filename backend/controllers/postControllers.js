@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 exports.getPosts = async (req, res, next) => {
   try {
     const posts = await Post.find()
+      .sort({ createdAt: -1 })
       .populate("creator", "-password -email -_id -posts -comments -__v")
       .populate({
         path: "comments",
