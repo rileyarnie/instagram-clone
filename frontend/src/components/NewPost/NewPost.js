@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import "./NewPost.css";
+import * as actionTypes from "../../store/actions/actionTypes";
+import { useDispatch } from "react-redux";
 
+// styles
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -19,9 +22,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NewPost() {
+// styles
+
+function NewPost() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [file, setfile] = useState("");
+  const [caption, setCaption] = useState("");
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(true);
@@ -31,6 +39,10 @@ export default function NewPost() {
     setOpen(false);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(actionTypes.createPost(file, caption));
+  };
   return (
     <div>
       <img
@@ -53,10 +65,20 @@ export default function NewPost() {
         <Fade in={open}>
           <div className={classes.paper}>
             <form className="newpost__form">
-            <h2 id="transition-modal-title">New Post</h2>
-              <textarea placeholder="enter caption" />
-              <input type="file" />
-              <button>Post</button>
+              <h2 id="transition-modal-title">New Post</h2>
+              <textarea
+                placeholder="enter caption"
+                onChange={(event) => {
+                  setCaption(event.target.value);
+                }}
+              />
+              <input
+                type="file"
+                onChange={(event) => {
+                  setfile(event.target.files[0]);
+                }}
+              />
+              <button onClick={handleSubmit}>Post</button>
             </form>
           </div>
         </Fade>
@@ -64,3 +86,5 @@ export default function NewPost() {
     </div>
   );
 }
+
+export default NewPost;

@@ -132,6 +132,21 @@ export const getPostsError = (error) => {
   };
 };
 
+export const createPost = (file, caption) => async (dispatch) => {
+  try {
+    const response = await axios.post("posts/create-post", {
+      file,
+      caption,
+    });
+    console.log(response);
+    return {
+      type: actionTypes.CREATE_POST,
+    };
+  } catch (error) {
+    console.log(error.response);
+  }
+};
+
 export const postComment = (postId, content) => async (dispatch) => {
   try {
     await axios.post(`/comments/${postId}/create-comment`, {
