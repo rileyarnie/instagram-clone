@@ -42,6 +42,7 @@ function NewPost() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(actionTypes.createPost(file, caption));
+    handleClose();
   };
   return (
     <div>
