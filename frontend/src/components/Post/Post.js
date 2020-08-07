@@ -18,7 +18,7 @@ const Post = ({ _id, comments, creator, caption, imageUrl }) => {
     <div className="post">
       <div className="post__header">
         <div className="post__creator">
-          <Avatar alt="Riley" src="profilepic"></Avatar>
+          <Avatar alt={creator.username} src="profilepic"></Avatar>
           <p className="post__username">{creator.username}</p>
         </div>
         <div className="post__options">
