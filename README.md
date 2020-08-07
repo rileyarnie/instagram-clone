@@ -1,68 +1,76 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Instagram- Clone
 
-## Available Scripts
+This is a clone of the popular photo sharing website.
 
-In the project directory, you can run:
+## Technologies Used
+- MongoDB
+- ExpressJS
+- ReactJS 
+- Node JS
+- Cloudinary
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## User Stories
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Users can register and log in to the website.
 
-### `npm test`
+- Users can see photos and comments from other users.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Users can create their own posts and comment on others.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Prerequisites
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+To work with Instagram-clone you need to have the items below. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+- Node.js  ```https://nodejs.org/en/```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- ReactJS  ```https://reactjs.org/docs/getting-started.html```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- MongoDB URI ```https://www.mongodb.com/cloud/atlas```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Cloudinary ```https://cloudinary.com```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you don't have these requirements you could use the links above to help with the installation guide.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Installation
 
-### Code Splitting
+Clone the repository in your local machine using the command 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+```bash
+git clone https://github.com/rileyarnie/instagram-clone.git
+```
 
-### Analyzing the Bundle Size
+### frontend
+Navigate into the frontend and install all dependencies
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+```bash
+cd frontend && npm install
+```
 
-### Making a Progressive Web App
+### backend
+Open a seperate terminal, navigate into the backend and install all dependencies
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-### Advanced Configuration
+```bash
+cd backend && npm install
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## Usage
 
-### Deployment
+To use, replace the MongoURI and cloudinary keys with your own from the respesctive accounts. Also set your own ACCESS_KEY as na environment variable.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+When done, run ```npm start  ``` on both terminals and the app should run on your local machine.
 
-### `npm run build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
